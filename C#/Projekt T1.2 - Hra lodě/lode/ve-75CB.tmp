@@ -1,0 +1,810 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        struct souradnice
+        {
+            public int X;
+            public int Y;
+        }
+        struct lod
+        {
+            public souradnice cast1;
+            public souradnice cast2;
+            public souradnice cast3;
+            public souradnice cast4;
+            public souradnice cast5;
+            public souradnice cast6;
+            public souradnice cast7;
+        }
+        static void Novy(string[,] pole1, string[,] pole2, int velikost)
+        {  
+            for (int i = 0; i < pole2.GetLength(0); i++)
+            {
+                for (int j = 0; j < pole2.GetLength(1); j++)
+                {
+                    pole1[i, j] = "  ";
+                    pole2[i, j] = "  ";
+                }
+            }
+        }
+
+        static void UMISTI(lod[] lod, string[,] pole, string[,] PC)
+        {
+            Random random = new Random();
+            int velikost = pole.GetLength(0);
+            Console.CursorVisible = false;
+            /*string pos = "";
+            while(pos.Length < 2) pos = Console.ReadLine();
+            char[] abc = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+            int Y;
+            for (Y = 0; Y < abc.Length; Y++)
+            {
+                if (abc[Y] == pos[0]) break;
+            }
+            int X = Convert.ToInt32(pos[1].ToString());
+            if (pos[1] == '1' || pos[1] == '2')
+            {
+                if (pos.Length == 3) X = Convert.ToInt32(pos[1].ToString() + pos[2].ToString());
+            }*/
+            for (int i = 11; i > 0; i--)
+            {
+                if (i == 11)
+                {
+                    lod[i].cast1.X = 0;
+                    lod[i].cast1.Y = 0;
+                    int X = random.Next(velikost);
+                    int Y = random.Next(velikost);
+                    while (X == 0 || X == velikost - 1 || Y == 0 || Y == velikost - 1 || pole[X, Y] != "  " || pole[X - 1, Y] != "  " || pole[X + 1, Y] != "  " || pole[X, Y - 1] != "  " || pole[X, Y + 1] != "  " || pole[X + 1, Y + 1] != "  " || pole[X - 1, Y - 1] != "  " || pole[X + 1, Y - 1] != "  " || pole[X - 1, Y + 1] != "  ")
+                    {
+                        X = random.Next(velikost);
+                        Y = random.Next(velikost);
+                    }
+                    pole[X, Y] = " K";
+                    if (Y <= velikost - 5 && Y >= 4 && X != velikost && X >= 2 && pole[X, Y + 2] == "  " && pole[X, Y + 3] == "  " && pole[X, Y - 2] == "  " && pole[X, Y - 3] == "  " && pole[X - 1, Y + 2] == "  " && pole[X - 1, Y + 3] == "  " && pole[X - 1, Y - 2] == "  " && pole[X - 1, Y - 3] == "  " && pole[X + 1, Y + 2] == "  " && pole[X + 1, Y + 3] == "  " && pole[X + 1, Y - 2] == "  " && pole[X + 1, Y - 3] == "  " && pole[X - 2, Y - 2] == "  " && pole[X - 2, Y - 1] == "  " && pole[X - 2, Y] == "  " && pole[X - 2, Y + 1] == "  " && pole[X - 2, Y + 2] == "  ")
+                    {
+                        pole[X, Y + 1] = " K";
+                        pole[X, Y - 1] = " K";
+                        pole[X, Y + 2] = " K";
+                        pole[X, Y - 2] = " K";
+                        pole[X - 1, Y - 1] = " K";
+                        pole[X - 1, Y + 1] = " K";
+                        Vypsat(pole, PC);
+                        ConsoleKeyInfo temp;
+                        while (true)
+                        {
+                            temp = Console.ReadKey(true);
+                            if (temp.Key == ConsoleKey.UpArrow)
+                            {
+                                if (X-2 != 0)
+                                {
+                                    pole[X, Y] = "  ";
+                                    pole[X, Y + 1] = "  ";
+                                    pole[X, Y - 1] = "  ";
+                                    pole[X, Y + 2] = "  ";
+                                    pole[X, Y - 2] = "  ";
+                                    pole[X - 1, Y - 1] = "  ";
+                                    pole[X - 1, Y + 1] = "  ";
+                                    if(pole[X - 1, Y] == "  ") pole[X - 1, Y] = " K";
+                                    if (pole[X - 1, Y+1] == "  ") pole[X - 1, Y + 1] = " K";
+                                    if (pole[X - 1, Y-1] == "  ") pole[X - 1, Y - 1] = " K";
+                                    if (pole[X - 1, Y+2] == "  ") pole[X - 1, Y + 2] = " K";
+                                    if (pole[X - 1, Y-2] == "  ") pole[X - 1, Y - 2] = " K";
+                                    if (pole[X - 2, Y-1] == "  ") pole[X - 2, Y - 1] = " K";
+                                    if (pole[X - 2, Y+1] == "  ") pole[X - 2, Y + 1] = " K";
+                                    X--;
+                                    Console.Clear();
+                                    Vypsat(pole, PC);
+                                }
+                            }
+                            else if (temp.Key == ConsoleKey.DownArrow)
+                            {
+                                if (X + 2 != velikost)
+                                {
+                                    pole[X, Y] = "  ";
+                                    pole[X, Y + 1] = "  ";
+                                    pole[X, Y - 1] = "  ";
+                                    pole[X, Y + 2] = "  ";
+                                    pole[X, Y - 2] = "  ";
+                                    pole[X - 1, Y - 1] = "  ";
+                                    pole[X - 1, Y + 1] = "  ";
+                                    if(pole[X + 1, Y] == "  ") pole[X + 1, Y] = " K";
+                                    if (pole[X + 1, Y+1] == "  ") pole[X + 1, Y + 1] = " K";
+                                    if (pole[X + 1, Y-1] == "  ") pole[X + 1, Y - 1] = " K";
+                                    if (pole[X + 1, Y+2] == "  ") pole[X + 1, Y + 2] = " K";
+                                    if (pole[X + 1, Y-2] == "  ") pole[X + 1, Y - 2] = " K";
+                                    if (pole[X, Y-1] == "  ") pole[X, Y - 1] = " K";
+                                    if (pole[X, Y+1] == "  ") pole[X, Y + 1] = " K";
+                                    X++;
+                                    Console.Clear();
+                                    Vypsat(pole, PC);
+                                }
+                            }
+                            else if (temp.Key == ConsoleKey.LeftArrow)
+                            {
+                                if (Y - 3 != 0)
+                                {
+                                    pole[X, Y] = "  ";
+                                    pole[X, Y + 1] = "  ";
+                                    pole[X, Y - 1] = "  ";
+                                    pole[X, Y + 2] = "  ";
+                                    pole[X, Y - 2] = "  ";
+                                    pole[X - 1, Y - 1] = "  ";
+                                    pole[X - 1, Y + 1] = "  ";
+                                    if (pole[X, Y - 1] == "  ") pole[X, Y - 1] = " K";
+                                    if (pole[X, Y] == "  ") pole[X, Y] = " K";
+                                    if (pole[X, Y -2] == "  ") pole[X, Y - 2] = " K";
+                                    if (pole[X, Y + 1] == "  ") pole[X, Y + 1] = " K";
+                                    if (pole[X, Y -3] == "  ") pole[X, Y - 3] = " K";
+                                    if (pole[X-1, Y -2] == "  ") pole[X - 1, Y - 2] = " K";
+                                    if (pole[X-1, Y] == "  ") pole[X - 1, Y] = " K";
+                                    Y--;
+                                    Console.Clear();
+                                    Vypsat(pole, PC);
+                                }
+                            }
+                            else if (temp.Key == ConsoleKey.RightArrow)
+                            {
+                                if (Y + 4 != velikost)
+                                {
+                                    pole[X, Y] = "  ";
+                                    pole[X, Y + 1] = "  ";
+                                    pole[X, Y - 1] = "  ";
+                                    pole[X, Y + 2] = "  ";
+                                    pole[X, Y - 2] = "  ";
+                                    pole[X - 1, Y - 1] = "  ";
+                                    pole[X - 1, Y + 1] = "  ";
+                                    if(pole[X, Y + 1] == "  ") pole[X, Y + 1] = " K";
+                                    if (pole[X, Y + 2] == "  ") pole[X, Y + 2] = " K";
+                                    if (pole[X, Y] == "  ") pole[X, Y] = " K";
+                                    if (pole[X, Y + 3] == "  ") pole[X, Y + 3] = " K";
+                                    if (pole[X, Y - 1] == "  ") pole[X, Y - 1] = " K";
+                                    if (pole[X - 1, Y] == "  ") pole[X - 1, Y] = " K";
+                                    if (pole[X - 1, Y + 2] == "  ") pole[X - 1, Y + 2] = " K";
+                                    Y++;
+                                    Console.Clear();
+                                    Vypsat(pole, PC);
+                                }
+                            }
+                            else if (temp.Key == ConsoleKey.Enter)
+                            {
+                                lod[i].cast1.X = X; lod[i].cast1.Y = Y;
+                                lod[i].cast2.X = X; lod[i].cast2.Y = Y-1;
+                                lod[i].cast3.X = X; lod[i].cast3.Y = Y + 1;
+                                lod[i].cast4.X = X; lod[i].cast4.Y = Y - 2;
+                                lod[i].cast5.X = X; lod[i].cast5.Y = Y + 2;
+                                lod[i].cast6.X = X - 1; lod[i].cast6.Y = Y - 1;
+                                lod[i].cast7.X = X - 1; lod[i].cast7.Y = Y + 1;
+                                Console.Clear();
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        i++;
+                        pole[X, Y] = "  ";
+                    }
+                }
+                if (i < 5)
+                {
+                    int X = random.Next(velikost);
+                    int Y = random.Next(velikost);
+                    while (X == 0 || X == velikost - 1 || Y == 0 || Y == velikost - 1 || pole[X, Y] != "  " || pole[X - 1, Y] != "  " || pole[X + 1, Y] != "  " || pole[X, Y - 1] != "  " || pole[X, Y + 1] != "  " || pole[X + 1, Y + 1] != "  " || pole[X - 1, Y - 1] != "  " || pole[X + 1, Y - 1] != "  " || pole[X - 1, Y + 1] != "  ")
+                    {
+                        X = random.Next(velikost);
+                        Y = random.Next(velikost);
+                    }
+                    pole[X, Y] = " L";
+                    if (Y != velikost - 1 && Y + 2 != velikost && Y + 1 != velikost - 1 && pole[X, Y + 1] == "  " && pole[X, Y + 2] == "  " && pole[X + 1, Y + 2] == "  " && pole[X - 1, Y + 2] == "  ")
+                    {
+                        pole[X, Y + 1] = " L";
+                        Vypsat(pole, PC);
+                        ConsoleKeyInfo temp;
+                        while (true)
+                        {
+                            temp = Console.ReadKey(true);
+                            if (temp.Key == ConsoleKey.UpArrow)
+                            {
+                                if (X != 1)
+                                {
+                                    if (pole[X - 1, Y] == "  " && pole[X - 1, Y + 1] == "  ")
+                                    {
+                                        pole[X, Y] = "  ";
+                                        pole[X, Y + 1] = "  ";
+                                        pole[X - 1, Y] = " L";
+                                        pole[X - 1, Y + 1] = " L";
+                                        X--;
+                                    }
+                                    Console.Clear();
+                                    Vypsat(pole, PC);
+                                }
+                            }
+                            else if (temp.Key == ConsoleKey.DownArrow)
+                            {
+                                if (X != velikost-2)
+                                {
+                                    if (pole[X + 1, Y] == "  " && pole[X + 1, Y + 1] == "  ")
+                                    {
+                                        pole[X, Y] = "  ";
+                                        pole[X, Y + 1] = "  ";
+                                        pole[X + 1, Y] = " L";
+                                        pole[X + 1, Y + 1] = " L";
+                                        X++;
+                                    }
+                                    Console.Clear();
+                                    Vypsat(pole, PC);
+                                }
+                            }
+                            else if (temp.Key == ConsoleKey.LeftArrow)
+                            {
+                                if (Y - 1 != 0)
+                                {
+                                    if (pole[X, Y-1] == "  ")
+                                    {
+                                        pole[X, Y] = "  ";
+                                        pole[X, Y + 1] = "  ";
+                                        pole[X, Y-1] = " L";
+                                        pole[X, Y] = " L";
+                                        Y--;
+                                    }
+                                    Console.Clear();
+                                    Vypsat(pole, PC);
+                                }
+                            }
+                            else if (temp.Key == ConsoleKey.RightArrow)
+                            {
+                                if (Y != velikost-3)
+                                {
+                                    if (pole[X, Y + 2] == "  ")
+                                    {
+                                        pole[X, Y] = "  ";
+                                        pole[X, Y+2] = " L";
+                                        Y++;
+                                    }
+                                    Console.Clear();
+                                    Vypsat(pole, PC);
+                                }
+                            }
+                            else if (temp.Key == ConsoleKey.Enter)
+                            {
+                                if (pole[X - 1, Y] == "  " && pole[X - 1, Y + 1] == "  " && pole[X - 1, Y + 2] == "  " && pole[X - 1, Y - 1] == "  " && pole[X + 1, Y] == "  " && pole[X + 1, Y + 1] == "  " && pole[X + 1, Y + 2] == "  " && pole[X + 1, Y - 1] == "  " && pole[X, Y - 1] == "  " && pole[X, Y +2] == "  ")
+                                {
+                                    Console.Clear();
+                                    break;
+                                }
+                                else CHYBA();
+                            }
+                        }
+                    }
+                    else if (Y != 1 && Y - 2 != velikost && Y - 1 != velikost - 1 && pole[X, Y - 1] == "  " && pole[X, Y - 2] == "  " && pole[X + 1, Y - 2] == "  " && pole[X - 1, Y - 2] == "  ")
+                    {
+                        pole[X, Y - 1] = " L";
+                        Vypsat(pole, PC);
+                        ConsoleKeyInfo temp;
+                        while (true)
+                        {
+                            temp = Console.ReadKey(true);
+                            if (temp.Key == ConsoleKey.UpArrow)
+                            {
+                                if (X != 1)
+                                {
+                                    if (pole[X - 1, Y] == "  " && pole[X - 1, Y - 1] == "  ")
+                                    {
+                                        pole[X, Y] = "  ";
+                                        pole[X, Y - 1] = "  ";
+                                        pole[X - 1, Y] = " L";
+                                        pole[X - 1, Y - 1] = " L";
+                                        X--;
+                                    }
+                                    Console.Clear();
+                                    Vypsat(pole, PC);
+                                }
+                            }
+                            else if (temp.Key == ConsoleKey.DownArrow)
+                            {
+                                if (X != velikost - 2)
+                                {
+                                    if (pole[X + 1, Y] == "  " && pole[X + 1, Y - 1] == "  ")
+                                    {
+                                        pole[X, Y] = "  ";
+                                        pole[X, Y - 1] = "  ";
+                                        pole[X + 1, Y] = " L";
+                                        pole[X + 1, Y - 1] = " L";
+                                        X++;
+                                    }
+                                    Console.Clear();
+                                    Vypsat(pole, PC);
+                                }
+                            }
+                            else if (temp.Key == ConsoleKey.LeftArrow)
+                            {
+                                if (Y - 1 != 1)
+                                {
+                                    if (pole[X, Y - 2] == "  ")
+                                    {
+                                        pole[X, Y] = "  ";
+                                        pole[X, Y - 2] = " L";
+                                        Y--;
+                                    }
+                                    Console.Clear();
+                                    Vypsat(pole, PC);
+                                }
+                            }
+                            else if (temp.Key == ConsoleKey.RightArrow)
+                            {
+                                if (Y != velikost - 2)
+                                {
+                                    if (pole[X, Y + 1] == "  ")
+                                    {
+                                        pole[X, Y - 1] = "  ";
+                                        pole[X, Y + 1] = " L";
+                                        Y++;
+                                    }
+                                    Console.Clear();
+                                    Vypsat(pole, PC);
+                                }
+                            }
+                            else if (temp.Key == ConsoleKey.Enter)
+                            {
+                                if (pole[X - 1, Y] == "  " && pole[X - 1, Y - 1] == "  " && pole[X - 1, Y + 1] == "  " && pole[X - 1, Y - 2] == "  " && pole[X + 1, Y] == "  " && pole[X + 1, Y + 1] == "  " && pole[X + 1, Y - 2] == "  " && pole[X + 1, Y - 1] == "  " && pole[X, Y - 2] == "  " && pole[X, Y + 1] == "  ")
+                                {
+                                    Console.Clear();
+                                    break;
+                                }
+                                else CHYBA();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        pole[X, Y] = "  ";
+                        i++;
+                    }
+                }
+                if (i > 4 && i < 8)
+                {
+                    int X = random.Next(velikost);
+                    int Y = random.Next(velikost);
+                    while (X == 0 || X == velikost - 1 || Y == 0 || Y == velikost - 1 || pole[X, Y] != "  " || pole[X - 1, Y] != "  " || pole[X + 1, Y] != "  " || pole[X, Y - 1] != "  " || pole[X, Y + 1] != "  " || pole[X + 1, Y + 1] != "  " || pole[X - 1, Y - 1] != "  " || pole[X + 1, Y - 1] != "  " || pole[X - 1, Y + 1] != "  ")
+                    {
+                        X = random.Next(velikost);
+                        Y = random.Next(velikost);
+                    }
+                    pole[X, Y] = " P";
+                    if (Y <= velikost - 3 && Y >= 2 && X != velikost && X != 0 && pole[X, Y + 1] == "  " && pole[X + 1, Y + 1] == "  " && pole[X - 1, Y + 1] == "  " && pole[X, Y - 1] == "  " && pole[X + 1, Y - 1] == "  " && pole[X - 1, Y - 1] == "  " && pole[X, Y + 2] == "  " && pole[X - 1, Y + 2] == "  " && pole[X + 1, Y + 2] == "  " && pole[X, Y - 2] == "  " && pole[X + 1, Y - 2] == "  " && pole[X - 1, Y - 2] == "  ")
+                    {
+                        pole[X, Y + 1] = " P";
+                        pole[X, Y - 1] = " P";
+                        Vypsat(pole, PC);
+                        ConsoleKeyInfo temp;
+                        while (true)
+                        {
+                            temp = Console.ReadKey(true);
+                            if (temp.Key == ConsoleKey.UpArrow)
+                            {
+                                if (X != 1)
+                                {
+                                    if (pole[X - 1, Y] == "  " && pole[X - 1, Y - 1] == "  " && pole[X - 1, Y + 1] == "  ")
+                                    {
+                                        pole[X, Y] = "  ";
+                                        pole[X, Y - 1] = "  ";
+                                        pole[X, Y + 1] = "  ";
+                                        pole[X-1, Y] = " P";
+                                        pole[X-1, Y - 1] = " P";
+                                        pole[X-1, Y + 1] = " P";
+                                        X--;
+                                    }
+                                    Console.Clear();
+                                    Vypsat(pole, PC);
+                                }
+                            }
+                            else if (temp.Key == ConsoleKey.DownArrow)
+                            {
+                                if (X != velikost - 2)
+                                {
+                                    if (pole[X + 1, Y] == "  " && pole[X + 1, Y - 1] == "  " && pole[X + 1, Y + 1] == "  ")
+                                    {
+                                        pole[X, Y] = "  ";
+                                        pole[X, Y - 1] = "  ";
+                                        pole[X, Y + 1] = "  ";
+                                        pole[X + 1, Y] = " P";
+                                        pole[X + 1, Y - 1] = " P";
+                                        pole[X + 1, Y + 1] = " P";
+                                        X++;
+                                    }
+                                    Console.Clear();
+                                    Vypsat(pole, PC);
+                                }
+                            }
+                            else if (temp.Key == ConsoleKey.LeftArrow)
+                            {
+                                if (Y != 2)
+                                {
+                                    if (pole[X, Y - 2] == "  ")
+                                    {
+                                        pole[X, Y + 1] = "  ";
+                                        pole[X, Y - 2] = " P";
+                                        Y--;
+                                    }
+                                    Console.Clear();
+                                    Vypsat(pole, PC);
+                                }
+                            }
+                            else if (temp.Key == ConsoleKey.RightArrow)
+                            {
+                                if (Y != velikost - 3)
+                                {
+                                    if (pole[X, Y + 2] == "  ")
+                                    {
+                                        pole[X, Y - 1] = "  ";
+                                        pole[X, Y + 2] = " P";
+                                        Y++;
+                                    }
+                                    Console.Clear();
+                                    Vypsat(pole, PC);
+                                }
+                            }
+                            else if (temp.Key == ConsoleKey.Enter)
+                            {
+                                if (pole[X + 1, Y] == "  " && pole[X + 1, Y + 1] == "  " && pole[X + 1, Y - 1] == "  " && pole[X + 1, Y + 2] == "  " && pole[X + 1, Y - 2] == "  " && pole[X - 1, Y + 1] == "  " && pole[X - 1, Y] == "  " && pole[X - 1, Y - 1] == "  " && pole[X - 1, Y + 2] == "  " && pole[X - 1, Y - 2] == "  " && pole[X, Y + 2] == "  " && pole[X, Y - 2] == "  ")
+                                {
+                                    Console.Clear();
+                                    break;
+                                }
+                                else CHYBA();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        i++;
+                        pole[X, Y] = "  ";
+                    }
+                }
+                if (i > 8 && i < 11)
+                {
+                    int X = random.Next(velikost);
+                    int Y = random.Next(velikost);
+                    while (X == 0 || X == velikost - 1 || Y == 0 || Y == velikost - 1 || pole[X, Y] != "  " || pole[X - 1, Y] != "  " || pole[X + 1, Y] != "  " || pole[X, Y - 1] != "  " || pole[X, Y + 1] != "  " || pole[X + 1, Y + 1] != "  " || pole[X - 1, Y - 1] != "  " || pole[X + 1, Y - 1] != "  " || pole[X - 1, Y + 1] != "  ")
+                    {
+                        X = random.Next(velikost);
+                        Y = random.Next(velikost);
+                    }
+                    pole[X, Y] = " O";
+                    if (Y <= velikost - 3 && Y >= 2 && X != velikost && X >= 2 && pole[X, Y + 1] == "  " && pole[X + 1, Y + 1] == "  " && pole[X - 1, Y + 1] == "  " && pole[X, Y - 1] == "  " && pole[X + 1, Y - 1] == "  " && pole[X - 1, Y - 1] == "  " && pole[X, Y + 2] == "  " && pole[X - 1, Y + 2] == "  " && pole[X + 1, Y + 2] == "  " && pole[X, Y - 2] == "  " && pole[X + 1, Y - 2] == "  " && pole[X - 1, Y - 2] == "  " && pole[X - 1, Y] == "  " && pole[X - 2, Y] == "  " && pole[X - 2, Y + 1] == "  " && pole[X - 2, Y - 1] == "  ")
+                    {
+                        pole[X, Y + 1] = " O";
+                        pole[X, Y - 1] = " O";
+                        pole[X - 1, Y] = " O";
+                        Vypsat(pole, PC);
+                        ConsoleKeyInfo temp;
+                        while (true)
+                        {
+                            temp = Console.ReadKey(true);
+                            if (temp.Key == ConsoleKey.UpArrow)
+                            {
+                                if (X != 2)
+                                {
+                                    if (pole[X - 1, Y - 1] == "  " && pole[X - 1, Y + 1] == "  " && pole[X - 2, Y] == "  ")
+                                    {
+                                        pole[X, Y] = "  ";
+                                        pole[X, Y - 1] = "  ";
+                                        pole[X, Y + 1] = "  ";
+                                        pole[X-1, Y] = "  ";
+                                        pole[X - 1, Y] = " O";
+                                        pole[X - 1, Y - 1] = " O";
+                                        pole[X - 1, Y + 1] = " O";
+                                        pole[X - 2, Y] = " O";
+                                        X--;
+                                    }
+                                    Console.Clear();
+                                    Vypsat(pole, PC);
+                                }
+                            }
+                            else if (temp.Key == ConsoleKey.DownArrow)
+                            {
+                                if (X != velikost - 2)
+                                {
+                                    if (pole[X + 1, Y] == "  " && pole[X + 1, Y - 1] == "  " && pole[X + 1, Y + 1] == "  " && pole[X + 2, Y] == "  ")
+                                    {
+                                        pole[X, Y - 1] = "  ";
+                                        pole[X, Y + 1] = "  ";
+                                        pole[X-1, Y] = "  ";
+                                        pole[X + 1, Y] = " O";
+                                        pole[X + 1, Y - 1] = " O";
+                                        pole[X + 1, Y + 1] = " O";
+                                        X++;
+                                    }
+                                    Console.Clear();
+                                    Vypsat(pole, PC);
+                                }
+                            }
+                            else if (temp.Key == ConsoleKey.LeftArrow)
+                            {
+                                if (Y != 2)
+                                {
+                                    if (pole[X, Y - 2] == "  " && pole[X-1, Y - 1] == "  ")
+                                    {
+                                        pole[X, Y + 1] = "  ";
+                                        pole[X-1, Y] = "  ";
+                                        pole[X, Y - 2] = " O";
+                                        pole[X - 1, Y - 1] = " O";
+                                        Y--;
+                                    }
+                                    Console.Clear();
+                                    Vypsat(pole, PC);
+                                }
+                            }
+                            else if (temp.Key == ConsoleKey.RightArrow)
+                            {
+                                if (Y != velikost - 3)
+                                {
+                                    if (pole[X, Y + 2] == "  " && pole[X - 1, Y + 1] == "  ")
+                                    {
+                                        pole[X, Y - 1] = "  ";
+                                        pole[X - 1, Y] = "  ";
+                                        pole[X, Y + 2] = " O";
+                                        pole[X - 1, Y + 1] = " O";
+                                        Y++;
+                                    }
+                                    Console.Clear();
+                                    Vypsat(pole, PC);
+                                }
+                            }
+                            else if (temp.Key == ConsoleKey.Enter)
+                            {
+                                if (pole[X + 1, Y] == "  " && pole[X + 1, Y + 1] == "  " && pole[X + 1, Y - 1] == "  " && pole[X + 1, Y + 2] == "  " && pole[X + 1, Y - 2] == "  " && pole[X, Y + 2] == "  " && pole[X, Y - 2] == "  " && pole[X - 2, Y] == "  " && pole[X - 1, Y + 2] == "  " && pole[X - 1, Y - 2] == "  " && pole[X - 2, Y - 1] == "  " && pole[X - 2, Y + 1] == "  ")
+                                {
+                                    Console.Clear();
+                                    break;
+                                }
+                                else CHYBA();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        i++;
+                        pole[X, Y] = "  ";
+                    }
+                }
+            }
+            Console.WriteLine("Hra může začít");
+            //Console.WriteLine(Y + "-" + X + "-" + pos.Length);
+        }
+        static void CHYBA()
+        {
+            Console.Beep();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Sem nemůže být umístěna loď!");
+        }
+        static void GEN(lod[] lod, string[,] hrac)
+        {
+            int velikost = hrac.GetLength(0);
+            Random random = new Random();
+            for (int i = 11; i > 0; i--)
+            {
+                if (i == 11)
+                {
+                    int X = random.Next(velikost);
+                    int Y = random.Next(velikost);
+                    while (X == 0 || X == velikost - 1 || Y == 0 || Y == velikost - 1 || hrac[X, Y] != "  " || hrac[X - 1, Y] != "  " || hrac[X + 1, Y] != "  " || hrac[X, Y - 1] != "  " || hrac[X, Y + 1] != "  " || hrac[X + 1, Y + 1] != "  " || hrac[X - 1, Y - 1] != "  " || hrac[X + 1, Y - 1] != "  " || hrac[X - 1, Y + 1] != "  ")
+                    {
+                        X = random.Next(velikost);
+                        Y = random.Next(velikost);
+                    }
+                    hrac[X, Y] = " K";
+                    if (Y <= velikost - 5 && Y >= 4 && X != velikost && X >= 2 && hrac[X, Y + 2] == "  " && hrac[X, Y + 3] == "  " && hrac[X, Y - 2] == "  " && hrac[X, Y - 3] == "  " && hrac[X - 1, Y + 2] == "  " && hrac[X - 1, Y + 3] == "  " && hrac[X - 1, Y - 2] == "  " && hrac[X - 1, Y - 3] == "  " && hrac[X + 1, Y + 2] == "  " && hrac[X + 1, Y + 3] == "  " && hrac[X + 1, Y - 2] == "  " && hrac[X + 1, Y - 3] == "  " && hrac[X - 2, Y - 2] == "  " && hrac[X - 2, Y - 1] == "  " && hrac[X - 2, Y] == "  " && hrac[X - 2, Y + 1] == "  " && hrac[X - 2, Y + 2] == "  ")
+                    {
+                        hrac[X, Y + 1] = " K";
+                        hrac[X, Y - 1] = " K";
+                        hrac[X, Y + 2] = " K";
+                        hrac[X, Y - 2] = " K";
+                        hrac[X - 1, Y - 1] = " K";
+                        hrac[X - 1, Y + 1] = " K";
+                    }
+                    else
+                    {
+                        i++;
+                        hrac[X, Y] = "  ";
+                    }
+                }
+                // generování 4 malých lodí
+                if (i < 5)
+                {
+                    int X = random.Next(velikost);
+                    int Y = random.Next(velikost);
+                    while (X == 0 || X == velikost - 1 || Y == 0 || Y == velikost - 1 || hrac[X, Y] != "  " || hrac[X - 1, Y] != "  " || hrac[X + 1, Y] != "  " || hrac[X, Y - 1] != "  " || hrac[X, Y + 1] != "  " || hrac[X + 1, Y + 1] != "  " || hrac[X - 1, Y - 1] != "  " || hrac[X + 1, Y - 1] != "  " || hrac[X-1, Y+1] != "  ")
+                    {
+                        X = random.Next(velikost);
+                        Y = random.Next(velikost);
+                    }
+                    hrac[X, Y] = " L";
+                    if (Y != velikost - 1 && Y + 2 != velikost && Y + 1 != velikost - 1 && hrac[X, Y + 1] == "  " && hrac[X, Y + 2] == "  " && hrac[X + 1, Y + 2] == "  " && hrac[X - 1, Y + 2] == "  ")
+                        hrac[X, Y + 1] = " L";
+                    else if (Y != 1 && Y - 2 != velikost && Y - 1 != velikost - 1 && hrac[X, Y - 1] == "  " && hrac[X, Y - 2] == "  " && hrac[X + 1, Y - 2] == "  " && hrac[X - 1, Y - 2] == "  ")
+                        hrac[X, Y - 1] = " L";
+                    else
+                    {
+                        hrac[X, Y] = "  ";
+                        i++;
+                    }
+                }
+                // generování 3 větších lodí
+                if (i > 4 && i < 8)
+                {
+                    int X = random.Next(velikost);
+                    int Y = random.Next(velikost);
+                    while (X == 0 || X == velikost - 1 || Y == 0 || Y == velikost - 1 || hrac[X, Y] != "  " || hrac[X - 1, Y] != "  " || hrac[X + 1, Y] != "  " || hrac[X, Y - 1] != "  " || hrac[X, Y + 1] != "  " || hrac[X + 1, Y + 1] != "  " || hrac[X - 1, Y - 1] != "  " || hrac[X + 1, Y - 1] != "  " || hrac[X - 1, Y + 1] != "  ")
+                    {
+                        X = random.Next(velikost);
+                        Y = random.Next(velikost);
+                    }
+                    hrac[X, Y] = " P";
+                    if (Y <= velikost - 3 && Y >= 2 && X != velikost && X != 0 && hrac[X, Y + 1] == "  " && hrac[X + 1, Y + 1] == "  " && hrac[X - 1, Y + 1] == "  " && hrac[X, Y - 1] == "  " && hrac[X + 1, Y - 1] == "  " && hrac[X - 1, Y - 1] == "  " && hrac[X, Y + 2] == "  " && hrac[X - 1, Y + 2] == "  " && hrac[X + 1, Y + 2] == "  " && hrac[X, Y - 2] == "  " && hrac[X + 1, Y - 2] == "  " && hrac[X - 1, Y - 2] == "  ")
+                    {
+                        hrac[X, Y + 1] = " P";
+                        hrac[X, Y - 1] = " P";
+                    }
+                    else
+                    {
+                        i++;
+                        hrac[X, Y] = "  ";
+                    }
+                }
+                // generování 2 křižníků
+                if (i > 8 && i < 11)
+                {
+                    int X = random.Next(velikost);
+                    int Y = random.Next(velikost);
+                    while (X == 0 || X == velikost - 1 || Y == 0 || Y == velikost - 1 || hrac[X, Y] != "  " || hrac[X - 1, Y] != "  " || hrac[X + 1, Y] != "  " || hrac[X, Y - 1] != "  " || hrac[X, Y + 1] != "  " || hrac[X + 1, Y + 1] != "  " || hrac[X - 1, Y - 1] != "  " || hrac[X + 1, Y - 1] != "  " || hrac[X - 1, Y + 1] != "  ")
+                    {
+                        X = random.Next(velikost);
+                        Y = random.Next(velikost);
+                    }
+                    hrac[X, Y] = " O";
+                    if (Y <= velikost - 3 && Y >= 2 && X != velikost && X >= 2 && hrac[X, Y + 1] == "  " && hrac[X + 1, Y + 1] == "  " && hrac[X - 1, Y + 1] == "  " && hrac[X, Y - 1] == "  " && hrac[X + 1, Y - 1] == "  " && hrac[X - 1, Y - 1] == "  " && hrac[X, Y + 2] == "  " && hrac[X - 1, Y + 2] == "  " && hrac[X + 1, Y + 2] == "  " && hrac[X, Y - 2] == "  " && hrac[X + 1, Y - 2] == "  " && hrac[X - 1, Y - 2] == "  " && hrac[X - 1, Y] == "  " && hrac[X - 2, Y] == "  " && hrac[X - 2, Y + 1] == "  " && hrac[X - 2, Y - 1] == "  ")
+                    {
+                        hrac[X, Y + 1] = " O";
+                        hrac[X, Y - 1] = " O";
+                        hrac[X-1, Y] = " O";
+                    }
+                    else
+                    {
+                        i++;
+                        hrac[X, Y] = "  ";
+                    }
+                }
+            }
+        }
+        static void VypsatLod()
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine(" L");
+        }
+        static void Vypsat(string[,] hrac, string[,] PC, lod[] lod_hrac, lod[] lod_PC)
+        {
+            char[] abc = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+            for (int i = 0; i < hrac.GetLength(0); i++)
+            {
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.BackgroundColor = ConsoleColor.White;
+                Console.Write(abc[i] + " ");
+            }
+            Console.Write("     ");
+            for (int i = 0; i < hrac.GetLength(0); i++)
+            {
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.BackgroundColor = ConsoleColor.White;
+                Console.Write(abc[i] + " ");
+            }
+            Console.WriteLine();
+            for (int i = 0; i < hrac.GetLength(0); i++)
+            {
+                for (int j = 0; j < hrac.GetLength(1); j++)
+                {
+                    for (int l = 0; l < lod_hrac.Length; l++)
+                    {
+                        if(lod_hrac[l].cast1.X != null && lod_hrac[l].cast1.Y != null) 
+                    }
+                    if (hrac[i, j] == "  ")
+                    {
+                        Console.BackgroundColor = ConsoleColor.Blue;
+                        Console.Write(hrac[i, j]);
+                    }
+                    if (hrac[i, j] == " L")
+                    {
+                        Console.BackgroundColor = ConsoleColor.Yellow;
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.Write(hrac[i, j]);
+                    }
+                    if (hrac[i, j] == " P")
+                    {
+                        Console.BackgroundColor = ConsoleColor.Red;
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write(hrac[i, j]);
+                    }
+                    if (hrac[i, j] == " O")
+                    {
+                        Console.BackgroundColor = ConsoleColor.Green;
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write(hrac[i, j]);
+                    }
+                    if (hrac[i, j] == " K")
+                    {
+                        Console.BackgroundColor = ConsoleColor.Magenta;
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        Console.Write(hrac[i, j]);
+                    }
+                }
+                Console.BackgroundColor = ConsoleColor.White;
+                Console.ForegroundColor = ConsoleColor.Black;
+                if (i < 10)
+                    Console.Write("  {0}  ", i);
+                else
+                    Console.Write("  {0} ", i);
+                for (int j = 0; j < PC.GetLength(1); j++)
+                {
+                    if (PC[i, j] == "  ")
+                    {
+                        Console.BackgroundColor = ConsoleColor.Blue;
+                        Console.Write(PC[i, j]);
+                    }
+                    if (PC[i, j] == " L")
+                    {
+                        Console.BackgroundColor = ConsoleColor.Yellow;
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.Write(PC[i, j]);
+                    }
+                    if (PC[i, j] == " P")
+                    {
+                        Console.BackgroundColor = ConsoleColor.Red;
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write(PC[i, j]);
+                    }
+                    if (PC[i, j] == " O")
+                    {
+                        Console.BackgroundColor = ConsoleColor.Green;
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write(PC[i, j]);
+                    }
+                    if (PC[i, j] == " K")
+                    {
+                        Console.BackgroundColor = ConsoleColor.Magenta;
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        Console.Write(PC[i, j]);
+                    }
+                }
+                Console.WriteLine();
+            }
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        static void Main(string[] args)
+        {
+            int V = Convert.ToInt32(Console.ReadLine());
+            lod[] lod_hrac = new lod[20];
+            lod[] lod_PC = new lod[20];
+            Console.BufferHeight = V * 6;
+            Console.BufferWidth = V * 6;
+            string[,] hrac = new string[V, V];
+            string[,] PC = new string[V, V];
+            while (true)
+            {
+                Console.Clear();
+                Novy(hrac, PC, V);
+                GEN(lod_PC, PC);
+                UMISTI(lod_hrac, hrac, PC);
+                Vypsat(hrac, PC, lod_hrac, lod_PC);
+                Console.ReadLine();
+            }
+        }
+    }
+}
